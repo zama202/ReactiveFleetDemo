@@ -8,7 +8,7 @@ namespace Common.Infrastructure
 {
     public static class RedisProvider
     {
-        private readonly  static string connString = "gabvr2019rds001.redis.cache.windows.net:6380,password=VxovT1snpVuu1ewzmzuh7mGEOijxiRCUOo9FjGoxmXs=,ssl=True,abortConnect=False";
+        private readonly  static string connString = "<CONNSTRING>";
         private static ConnectionMultiplexer connection = null;
         public static async Task<Bundle> getConnectionAsync()
         {

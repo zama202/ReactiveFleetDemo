@@ -13,7 +13,7 @@ namespace Common.Infrastructure
         private static ServiceClient s_serviceClient = null;
 
         // Connection string for your IoT Hub
-        private readonly static string s_connectionString = "HostName=gab2019vrihs001.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=s6lkEmIzpn6g8hPYwu5160RXeAFAeOZSu1F+uJ2ihWM=";
+        private readonly static string s_connectionString = "<CONNESTRING>";
 
         // Invoke the direct method on the device, passing the payload
         public static async Task<int> InvokeMethod(string deviceId, string methodName, string content)

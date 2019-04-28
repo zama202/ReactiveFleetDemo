@@ -20,11 +20,11 @@ namespace Module.EventGridProducer
     {
        
 
-        private const string EventHubConnectionString = "Endpoint=sb://gab2019vrehn001.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=7s7LYUr0kGRflc0xQi74c0XgT4lMV9D82OYLpeEvKco=";
-        private const string EventHubName = "gab2019vreht001";
-        private const string StorageContainerName = "gab2019vreht001cp";
-        private const string StorageAccountName = "gab2019vrvhd001";
-        private const string StorageAccountKey = "saZxlXNQhlD+3DlxwDwhZJZuXMY5YOnQW+elNvl6qsilguPIvi0RhiDkh8/ihgOO92GBBhQIxbQmeMJvvXlM2w==";
+        private const string EventHubConnectionString = "<NAMESPACECONN>";
+        private const string EventHubName = "TOPICNAME";
+        private const string StorageContainerName = "CHECKPOINTSTORAGE_CONTAINER";
+        private const string StorageAccountName = "CHECKPOINT_ACCOUNTNAME";
+        private const string StorageAccountKey = "CHECKPOINT_ACCOUNTPASSWORD";
 
         private static readonly string StorageConnectionString = string.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}", StorageAccountName, StorageAccountKey);
 
@@ -52,35 +52,5 @@ namespace Module.EventGridProducer
             // Disposes of the Event Processor Host
             await eventProcessorHost.UnregisterEventProcessorAsync();
         }
-
-        
-        
     }
 }
-
-
-
-
-
-
-/*
- *
- {
-	"ed": "2019-04-25T13:38:11.7108488+02:00",
-	"pf": "av",
-	"pt": "1",
-	"sid": "48373419-b583-4d72-876a-8f72a6917c0f",
-	"code": "db8cbaf5-64fb-46e0-bd15-f09ffb30d980",
-	"pos": {
-		"type": "Point",
-		"coordinates": [12.37333, 45.57944]
-	},
-	"data": null,
-	"pk": "d000001"
-}
- *
- *
- * *
- *
- * */
-

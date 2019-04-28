@@ -65,39 +65,3 @@ namespace Service.Tracking.Data
         }
     }
 }
-
-/*
- * 
-    private void ExecuteSimpleQuery(string databaseName, string collectionName)
-    {
-    // Set some common query options
-    FeedOptions queryOptions = new FeedOptions { MaxItemCount = -1 };
-
-    // Here we find the Andersen family via its LastName
-    IQueryable<Family> familyQuery = this.client.CreateDocumentQuery<Family>(
-            UriFactory.CreateDocumentCollectionUri(databaseName, collectionName), queryOptions)
-        .Where(f => f.LastName == "Andersen");
-
-    // The query is executed synchronously here, but can also be executed asynchronously via the IDocumentQuery<T> interface
-    Console.WriteLine("Running LINQ query...");
-    foreach (Family family in familyQuery)
-    {
-        Console.WriteLine("\tRead {0}", family);
-    }
-
-    // Now execute the same query via direct SQL
-    IQueryable<Family> familyQueryInSql = this.client.CreateDocumentQuery<Family>(
-        UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
-        "SELECT * FROM Family WHERE Family.LastName = 'Andersen'",
-        queryOptions);
-
-    Console.WriteLine("Running direct SQL query...");
-    foreach (Family family in familyQueryInSql)
-    {
-        Console.WriteLine("\tRead {0}", family);
-    }
-
-    Console.WriteLine("Press any key to continue ...");
-    Console.ReadKey();
-    }
- */

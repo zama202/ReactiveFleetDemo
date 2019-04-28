@@ -137,21 +137,6 @@ namespace Service.Tracking.Application
     }
 
 
-    /*
-     *
-     *
-
-            DeviceEvent deviceObj = JsonConvert.DeserializeObject<DeviceEvent>(body);
-
-            //Do the stuff
-            DeliveryModel delivery = await DeliveryService.NextDelivery(deviceObj.DeviceId);
-
-            //Convert to output
-            var json = JsonConvert.SerializeObject(delivery, Formatting.Indented);
-            return req.CreateResponse(HttpStatusCode.OK, delivery);
-     *
-     *
-     */
 
 
 }

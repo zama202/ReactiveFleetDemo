@@ -64,9 +64,9 @@ namespace Module.EventGridProducer
             };
         }
 
-        private static string topicEndpoint = "https://position.westeurope-1.eventgrid.azure.net/api/events";
+        private static string topicEndpoint = "https://<NAME>.eventgrid.azure.net/api/events";
         private static string topicHostName = new Uri(topicEndpoint).Host;
-        private static string topicKey = "XdxEinMkknuShiERWqhTES3UilDoUMk/kW7CaLbniQQ=";
+        private static string topicKey = "<KEY>";
 
 
         private static async Task sendEventGridMessageWithEventGridClientAsync(string topic, List<EventGridEvent> events)

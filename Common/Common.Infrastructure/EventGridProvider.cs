@@ -12,9 +12,9 @@ namespace Common.Infrastructure
 
     public static class EventGridProvider
     {
-        private static readonly string topicEndpoint = "https://gab2019vregt001.westeurope-1.eventgrid.azure.net/api/events";
+        private static readonly string topicEndpoint = "https://<NAME>.eventgrid.azure.net/api/events";
         private static readonly string topicHostName = new Uri(topicEndpoint).Host;
-        private static readonly string topicKey = "k+WNMgRC7xCOS+TIa2AI88mMEzvv7/F/F/e9LK4AS0I=";
+        private static readonly string topicKey = "<KEY>";
         private static EventGridClient client = null;
 
         public static EventGridClient GetClient()

@@ -23,10 +23,10 @@ namespace Service.Delivery.Application
         private static DocumentCollection _collection;
 
 
-        private static string EndpointUri = "https://gab2019vrca001.documents.azure.com:443/";
-        private static string AuthorizationKey = "JiZSEb1CVeGVmJFnQ1jY1mTJSeLmnyuSDImGXqf0ocIDH1fKU8bMgNCbX2lxM1ffh6c34AGR1ETsXS8Ki4oYPw==";
-        private static string DatabaseId = "gab2019vrdb001";
-        private static string CollectionId = "gab2019vrdc001";
+        private static string EndpointUri = "https://<COSMOSACCOUNT>.documents.azure.com:443/";
+        private static string AuthorizationKey = "SECRET";
+        private static string DatabaseId = "DDB";
+        private static string CollectionId = "DC";
         private static string PrimaryKey = "pk";
         
         public static async Task<ResponseDomain> GetDeliveryAsync(string body, ILogger log, ExecutionContext context)
@@ -169,15 +169,6 @@ namespace Service.Delivery.Application
                 _database = provider.cosmosDatabase;
                 _collection = provider.cosmosCollection;
                 
-                //var config = new ConfigurationBuilder()
-                //    .SetBasePath(context.FunctionAppDirectory)
-                //    .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
-                //    .AddEnvironmentVariables()
-                //    .Build();
-
-                //_client = new DocumentClient(new Uri(config["EndpointUri"]), config["AuthorizationKey"]);
-                //_database = _client.CreateDatabaseQuery().Where(c => c.Id == config["DatabaseId"]).AsEnumerable().FirstOrDefault(); //ToArray().FirstOrDefault();
-                //_collection = _client.CreateDocumentCollectionQuery(_database.SelfLink).Where(c => c.Id == config["CollectionId"]).AsEnumerable().FirstOrDefault(); //ToArray().FirstOrDefault();
             }
             
         }

@@ -21,7 +21,7 @@ namespace TruckSimulator
     static class Program
     {
 
-        private const string BaseUrl = "https://gab2019vrafa003triggerdelivery.azurewebsites.net";
+        private const string BaseUrl = "";
         private static DeviceClient _deviceClient;
         private static string deviceId = "d000001";
 
@@ -188,7 +188,7 @@ namespace TruckSimulator
 
         public static async Task<RouteResultLeg> GetSession(string start_lat, string start_lng, string end_lat, string end_lng)
         {
-            var am = new AzureMapsToolkit.AzureMapsServices("hl5yAHeRE4I3q_ZDT-tFiTG0lfDARF7pauzaowCJGdQ");
+            var am = new AzureMapsToolkit.AzureMapsServices("");
 
             RouteResultLeg leg = null;
 
