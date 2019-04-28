@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebSample</title>
+    <meta http-equiv="x-ua-compatible" content="IE=Edge" />
+    <meta name="description" content="This sample shows how to animate a symbol along a path on the map smoothly. " />
+    <meta name="keywords" content="map, gis, API, SDK, animate, animation, symbols, pushpins, markers, pins, line, linestring, polyline" />
+    <meta name="author" content="Microsoft Azure Maps" />
+
+    <!-- Add references to the Azure Maps Map control JavaScript and CSS files. -->
+    <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" type="text/css" />
+    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+    </environment>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script type='text/javascript'>
+        var map, pin, datasource, marker;
+        var animationTime = 5000;
+        var animation;
+
+        //Create an array of points to define a path to animate along.
+        var path = [
+            [-122.34758, 47.62155],
+            [-122.34764, 47.61859],
+            [-122.33787, 47.61295],
+            [-122.34217, 47.60964]
+        ];
+        var lat = 0;
+        var lng = 0;
+
+
+        function GetMap() {
+            //Initialize a map instance.
+            map = new atlas.Map('myMap',
+                {
+                    center: [12.4818, 41.9109],
+                    zoom: 5,
+
+                    //Add your Azure Maps subscription key to the map SDK. Get an Azure Maps key at https://azure.com/maps
+                    authOptions: {
+                        authType: 'subscriptionKey',
+                        subscriptionKey: 'hl5yAHeRE4I3q_ZDT-tFiTG0lfDARF7pauzaowCJGdQ'
+                    }
+                });
+            /*
+            map.events.add('ready', function () {
+                //Create a HTML marker and add it to the map.
+                marker = new atlas.HtmlMarker({
+                    htmlContent: '<div class="pulseIcon"></div>',
+                    position: [-110, 45]
+                });
+                map.markers.add(marker);
+            });
+            */
+
+            //Wait until the map resources are ready.
+            map.events.add('ready',
+                function() {
+                    //Create a data source and add it to the map.
+                    datasource = new atlas.source.DataSource();
+                    map.sources.add(datasource);
+                    //Create a layer that defines how to render the shapes in the data source and add it to the map.
+                    map.layers.add(new atlas.layer.SymbolLayer(datasource,
+                        null,
+                        {
+                            iconOptions: {
+                                //For smoother animation, ignore the placement of the icon. This skips the label collision calculations and allows the icon to overlap map labels.
+                                ignorePlacement: true,
+                                //For smoother animation, allow symbol to overlap all other symbols on the map.
+                                allowOverlap: true
+                            },
+                            textOptions: {
+                                //For smoother animation, ignore the placement of the text. This skips the label collision calculations and allows the text to overlap map labels.
+                                ignorePlacement: true,
+                                //For smoother animation, allow text to overlap all other symbols on the map.
+                                allowOverlap: true
+                            }
+                        }));
+                    //Create a pin and wrap with the shape class and add to data source.
+                    pin = new atlas.Shape(new atlas.data.Point(GetPosition(myCallback)));
+                    datasource.add(pin);
+                    //Start the animation.
+                    animateMarker(0);
+                });
+        }
+
+        function myCallback(data) {
+            lat = data.lat;
+            lng = data.lng;
+
+        }
+
+        function GetPosition(callback) {
+            var jsondata = { "id": "d000001" };
+
+            var pos = null;
+
+            $.ajax({
+                type: "POST",
+                url: "https://gab2019vrafa002triggerstatus.azurewebsites.net/api/GetStatus",
+                data: JSON.stringify(jsondata),
+                success: function(response) {
+                    console.log(response); // for testing only
+                    //var data = JSON.parse(response);
+                    jQuery.each(response,
+                        function(index, row) {
+                            callback(row);
+                            pos = row;
+                            //console.log(row.lat);
+                        });
+                },
+                dataType: "json"
+            });
+            return pos;
+        };
+
+        function animateMarker(timestamp) {
+            //Update the position of the pin for the animation frame.
+
+
+            GetPosition(myCallback);
+            var pos = [
+                lat,
+                lng
+            ];
+            //alert(pos);
+
+            
+
+            pin.setCoordinates([pippo(pos[0]), pippo(pos[1])]);
+            //pin.refresh();
+            //Request the next frame of the animation.
+            requestAnimationFrame(animateMarker);
+        }
+
+        function pippo(val) {
+
+            //alert(val);
+            return val;
+        }
+
+
+    </script>
+    
+</head>
+<body onload="GetMap()">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">WebSample</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <partial name="_CookieConsentPartial" />
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2019 - WebSample - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+        </script>
+    </environment>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

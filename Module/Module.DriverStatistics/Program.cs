@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Console01
+namespace Module.DriverStatistics
 {
     class Program
     {
